@@ -1,28 +1,70 @@
-import { useState } from 'react'
+import React from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Portfolio from './components/Portfolio';
+import Contact from './components/Contact';
+import { About, Services, Process, Testimonials } from './components/Sections';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+    <div className="font-sans text-zinc-900 bg-white">
+      {/* SEO meta + JSON-LD minimal via React Helmet-like pattern (inline) */}
+      <HeadTags />
+
+      <Navbar />
+      <Hero />
+      <About />
+      <Services />
+      <Portfolio />
+      <Process />
+      <Testimonials />
+      <Contact />
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+function HeadTags() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Monochrome Gallery',
+    url: typeof window !== 'undefined' ? window.location.href : 'https://example.com',
+    sameAs: [
+      'https://instagram.com/yourbrand',
+      'https://www.youtube.com/@yourbrand'
+    ],
+    logo: 'https://placehold.co/200x200/111/FFF?text=Mono',
+  };
+
+  return (
+    <>
+      <title>Monochrome Gallery — Jasa Editing Foto & Video Minimalis Elegan</title>
+      <meta name="description" content="Studio editing foto dan video berestetika monokrom dengan aksen emas. Konsisten, tajam, dan premium untuk brand & personal." />
+      <meta name="keywords" content="editing foto, editing video, monokrom, grayscale, jasa retouching, color grading" />
+      <meta property="og:title" content="Monochrome Gallery" />
+      <meta property="og:description" content="Editing foto & video berkelas, minimalis, abadi." />
+      <meta property="og:type" content="website" />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+    </>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-zinc-200 py-10 text-sm text-zinc-600">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p>
+          © {new Date().getFullYear()} Monochrome Gallery. Seluruh hak cipta.
+        </p>
+        <div className="flex items-center gap-4">
+          <a href="#services" className="hover:text-amber-600">Layanan</a>
+          <a href="#portfolio" className="hover:text-amber-600">Portfolio</a>
+          <a href="#contact" className="hover:text-amber-600">Kontak</a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+export default App;
